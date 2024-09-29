@@ -1,5 +1,8 @@
 RESET='\033[0m'       # Text Reset
-
+if [ "$(id -u)" != "0" ]; then
+   echo "This script must be run as root" 1>&2
+   exit 1
+fi
 # Regular Colors
 Black='\033[0;30m'        # Black
 Red='\033[0;31m'          # Red
