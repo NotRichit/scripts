@@ -15,4 +15,19 @@ echo -e "$BLUE██║░░██╗░███████║█████
 echo -e "$BLUE██║░░╚██╗██╔══██║██╔══██║░╚═══██╗░░░██║░░░"
 echo -e "$BLUE╚██████╔╝██║░░██║██║░░██║██████╔╝░░░██║░░░"
 echo -e "$BLUE░╚═════╝░╚═╝░░╚═╝╚═╝░░╚═╝╚═════╝░░░░╚═╝░░░$RESET"
+sleep 1
+echo -e "$Yellow Ghast's Installer Script is running..."
+sleep 2
+echo -ne '#####                     (33%)\r'
+sleep 1
+echo -ne '#############             (66%)\r'
+sleep 1
+echo -ne '#######################   (100%)\r'
+echo -ne '\n'
+echo -e "$RESET"
+echo -r "$Cyan Installing Packages..."
+apt update -y
+apt upgrade -y
+apt install wget git net-tools -y
+echo "$Green Installed Packages"
 
