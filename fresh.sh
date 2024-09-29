@@ -9,6 +9,7 @@ BLUE='\033[0;34m'         # Blue
 Purple='\033[0;35m'       # Purple
 Cyan='\033[0;36m'         # Cyan
 White='\033[0;37m'
+clear
 echo -e "$BLUE░██████╗░██╗░░██╗░█████╗░░██████╗████████╗"
 echo -e "$BLUE██╔════╝░██║░░██║██╔══██╗██╔════╝╚══██╔══╝"
 echo -e "$BLUE██║░░██╗░███████║███████║╚█████╗░░░░██║░░░"
@@ -25,7 +26,7 @@ sleep 1
 echo -ne '#######################   (100%)\r'
 echo -ne '\n'
 echo -e "$RESET"
-echo -r "$Cyan Installing Packages..."
+echo -e "$Cyan Installing Packages..."
 apt update -y
 apt upgrade -y
 apt install wget git net-tools -y
