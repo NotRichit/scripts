@@ -38,8 +38,10 @@ TITLE="Installer"
 MENU="Choose one of the following options:"
 
 OPTIONS=(1 "Pterodactyl"
-         2 "Option 2"
-         3 "Option 3")
+         2 "Pufferpanel"
+         3 "Code Server"
+         4 "Docker"
+         5 "Exit")
 
 CHOICE=$(dialog --clear \
                 --backtitle "$BACKTITLE" \
@@ -52,12 +54,44 @@ CHOICE=$(dialog --clear \
 clear
 case $CHOICE in
         1)
-            echo "You chose Option 1"
+            bash <(curl -s https://pterodactyl-installer.se)
+            echo " ########"
+            echo "Use serveo tunnel to access the pterodactyl (port 80)"
             ;;
         2)
-            echo "You chose Option 2"
+            curl -s https://packagecloud.io/install/repositories/pufferpanel/pufferpanel/script.deb.sh | sudo bash
+            sudo apt-get install pufferpanel -y
+            sudo pufferpanel user add
+            sudo systemctl enable --now pufferpanel
+            echo "Pufferpanel is now running"
+            sleep 1
+            echo "Use serveo tunnel to access it (port 8080)"
+
             ;;
         3)
-            echo "You chose Option 3"
+            curl -fsSL https://code-server.dev/install.sh | sh
+            echo "Use serveo Tunnel to access"
             ;;
+        4) 
+            for pkg in docker.io docker-doc docker-compose docker-compose-v2 podman-docker containerd runc; do sudo apt-get remove $pkg; done
+            # Add Docker's official GPG key:
+            sudo apt-get update
+            sudo apt-get install ca-certificates curl
+            sudo install -m 0755 -d /etc/apt/keyringssudo curl -fsSL https://download.docker.com/linux/ubuntu/gpg -o /etc/apt/keyrings/docker.asc
+            sudo chmod a+r /etc/apt/keyrings/docker.asc
+
+# Add the repository to Apt sources:
+echo \
+  "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.asc] https://download.docker.com/linux/ubuntu \
+  $(. /etc/os-release && echo "$VERSION_CODENAME") stable" | \
+  sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+sudo apt-get update
+     sudo apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
+     sudo docker run hello-world
+           ;;
+         
+           5)
+             exit
+            ;;
+         
 esac
